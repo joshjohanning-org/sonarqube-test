@@ -1,0 +1,56 @@
+name: PR Closed Cleanup
+
+on:
+  pull_request:
+    types: [closed]
+    
+# WARNING this variable needs to have the same logic as the CICD for PR deployment
+env:
+  ResourceGroupName: MyShuttle-${{ github.event.repository.id }}-pr-${{ github.event.number }}
+    
+jobs:
+  destroyprenvironment:
+    name: Destroy PR Environment
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Delete Resource Group ${{ env.ResourceGroupName }} if exists 
+        uses: Azure/cli@v1
+        with:
+          inlineScript: |
+             if [ "$(az group exists --name ${{ env.ResourceGroupName }})" = "true" ]; then
+                echo 'deleting ${{ env.ResourceGroupName }} resource group (non blocking)'
+                az group delete --name "${{ env.ResourceGroupName }}" --yes --no-wait
+             fi
+
+      - name: Get Token To delete environment
+        id: get_workflow_token
+        uses: peter-murray/workflow-application-token-action@v1
+        with:
+          application_id: ${{ secrets.PERMISSIONS_APP_ID }}
+          application_private_key: ${{ secrets.PERMISSIONS_APP_PRIVATE_KEY }}    
+
+      - name: delete environment
+        run:
+          gh api --method DELETE /repos/${{ github.repository}}/environments/pull-request-${{ github.event.number }}
+        env:
+          GH_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
+
+
+      - uses: marocchino/sticky-pull-request-comment@v2
+        if: always()
+        with:
+          header: url
+          append: true
+          message: |
+            :tada: Sorry, the environment has now been destroyed since the PR has been closed. :scissors:
+
+
+
+
+
