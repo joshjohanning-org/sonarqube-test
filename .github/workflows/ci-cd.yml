@@ -3,9 +3,9 @@ name: CICD
 
 on:
   push:
-    branches: [ demos/main ]
+    branches: [ main ]
   pull_request:
-    branches: [ demos/main ]
+    branches: [ main ]
   workflow_dispatch:
 
 permissions:
