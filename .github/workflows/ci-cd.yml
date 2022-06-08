@@ -33,6 +33,7 @@ env:
   dbUser: dbuser
   artifactsName: artifacts
   integration_tests_path: ${{ github.workspace}}/tests/integration
+  SONAR_HOST_URL: https://joshjohanning-org-sonarqube-test-5xgpv494cv6gq-9000.githubpreview.dev/dashboard?id=github-sonarqube-test
 
 jobs:
   build:
@@ -72,7 +73,7 @@ jobs:
     - uses: sonarsource/sonarqube-scan-action@master
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
     # If you wish to fail your job when the Quality Gate is red, uncomment the
     # following lines. This would typically be used to fail a deployment.
     # - uses: sonarsource/sonarqube-quality-gate-action@master
