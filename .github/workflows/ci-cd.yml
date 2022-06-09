@@ -27,7 +27,7 @@ permissions:
 # repositories deploying this sample. It's kind of hackish, but works for sample purposes and 
 # avoids manual replacements by users. Under normal circumstances, you would use a constant.
 env:
-  SONAR_HOST_URL: https://joshjohanning-org-sonarqube-test-5xgpv494cv6gq-9000.githubpreview.dev
+  # SONAR_HOST_URL: https://joshjohanning-org-sonarqube-test-5xgpv494cv6gq-9000.githubpreview.dev
   SONAR_PROJECT_KEY: github-sonarqube-test
   artifactsName: artifacts
 
@@ -69,7 +69,7 @@ jobs:
     - uses: sonarsource/sonarqube-scan-action@master
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
     # If you wish to fail your job when the Quality Gate is red, uncomment the
     # following lines. This would typically be used to fail a deployment.
     # - uses: sonarsource/sonarqube-quality-gate-action@master
@@ -84,7 +84,7 @@ jobs:
         name: SonarQube Link
         conclusion: ${{ job.status }}
         output: |
-          {"summary":"${{ env.SONAR_HOST_URL}}/dashboard?id=${{ env.SONAR_PROJECT_KEY }}"}
+          {"summary":"${{ secrets.SONAR_HOST_URL}}/dashboard?id=${{ env.SONAR_PROJECT_KEY }}"}
 
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
