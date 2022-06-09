@@ -28,6 +28,8 @@ permissions:
 # avoids manual replacements by users. Under normal circumstances, you would use a constant.
 env:
   SONAR_HOST_URL: https://joshjohanning-org-sonarqube-test-5xgpv494cv6gq-9000.githubpreview.dev
+  SONAR_PROJECT_KEY: github-sonarqube-test
+  artifactsName: artifacts
 
 jobs:
   build:
@@ -79,10 +81,10 @@ jobs:
       if: always()
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        name: SonarQube
+        name: SonarQube Link
         conclusion: ${{ job.status }}
         output: |
-          {"summary":"test"}
+          {"summary":"${{ env.SONAR_HOST_URL}}/dashboard?id=${{ env.SONAR_PROJECT_KEY }}"}
 
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
