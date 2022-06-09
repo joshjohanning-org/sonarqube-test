@@ -82,7 +82,7 @@ jobs:
         name: SonarQube
         conclusion: ${{ job.status }}
         output: |
-          {"SonarQube Link":${{ env.SONAR_HOST_URL }}/dashboard?id=github-sonarqube-test}
+          {"summary":"test"}
 
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
