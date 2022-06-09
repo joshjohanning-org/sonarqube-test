@@ -4,6 +4,8 @@ Using [myshuttle](https://github.com/joshjohanning-org/MyShuttle) app to do a So
 
 # Sonarqube setup
 
+https://docs.sonarqube.org/latest/setup/get-started-2-minutes/
+
 Running this on Codespaces, but can run this from anywhere
 
 ```bash
@@ -26,4 +28,4 @@ docker logs 8ca696a97753 -f
 # Sonarqube Server info
 
 Sonar Server URL for this Codespace: https://joshjohanning-org-sonarqube-test-5xgpv494cv6gq-9000.githubpreview.dev
-Project ID: github-sonarqube-test
+Project ID: `github-sonarqube-test`
