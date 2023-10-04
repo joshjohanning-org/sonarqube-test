@@ -78,7 +78,7 @@ jobs:
     #   env:
     #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-    - uses: LouisBrunner/checks-action@v1.1.1
+    - uses: LouisBrunner/checks-action@v1.6.2
       if: always()
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
