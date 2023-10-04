@@ -87,7 +87,7 @@ jobs:
           {"summary":"${{ secrets.SONAR_HOST_URL}}/dashboard?id=${{ env.SONAR_PROJECT_KEY }}"}
 
     - name: Upload Build Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         path: |
             **/target/*.war 
