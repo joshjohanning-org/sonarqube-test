@@ -5,6 +5,11 @@
 
 version: 2
 updates:
+  - package-ecosystem: "github-actions"
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "monthly"
+      
   - package-ecosystem: "maven"
     directory: "/" # Location of package manifests
     schedule:
